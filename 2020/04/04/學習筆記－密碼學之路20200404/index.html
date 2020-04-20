@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"junminhong.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="簡介此篇將會介紹密碼學的相關知識，並會針對各個密碼進行加解密及破解實作。 基本名詞解釋 加密 Encrypt：指將明文經過某種程序轉換成密文，該程序稱為加密。 解密 Decrypt：指將密文經過某種程序轉換成名文，該程序稱為解密。 明文 Plaintext：加密前的訊息。 密文 CiperText：加密後的訊息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="學習筆記－密碼學之路">
+<meta property="og:url" content="https://junminhong.github.io/2020/04/04/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%AF%86%E7%A2%BC%E5%AD%B8%E4%B9%8B%E8%B7%AF20200404/index.html">
+<meta property="og:site_name" content="學習筆記">
+<meta property="og:description" content="簡介此篇將會介紹密碼學的相關知識，並會針對各個密碼進行加解密及破解實作。 基本名詞解釋 加密 Encrypt：指將明文經過某種程序轉換成密文，該程序稱為加密。 解密 Decrypt：指將密文經過某種程序轉換成名文，該程序稱為解密。 明文 Plaintext：加密前的訊息。 密文 CiperText：加密後的訊息。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-04-04T14:54:54.000Z">
+<meta property="article:modified_time" content="2020-04-17T15:54:04.066Z">
+<meta property="article:author" content="HONG JUN MIN">
+<meta property="article:tag" content="code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://junminhong.github.io/2020/04/04/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%AF%86%E7%A2%BC%E5%AD%B8%E4%B9%8B%E8%B7%AF20200404/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>學習筆記－密碼學之路 | 學習筆記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">學習筆記</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">只做自己喜歡的事</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/04/04/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%AF%86%E7%A2%BC%E5%AD%B8%E4%B9%8B%E8%B7%AF20200404/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HONG JUN MIN">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="學習筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          學習筆記－密碼學之路
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-04-04 22:54:54" itemprop="dateCreated datePublished" datetime="2020-04-04T22:54:54+08:00">2020-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-04-17 23:54:04" itemprop="dateModified" datetime="2020-04-17T23:54:04+08:00">2020-04-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AF%86%E7%A2%BC%E5%AD%B8/" itemprop="url" rel="index"><span itemprop="name">密碼學</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>此篇將會介紹密碼學的相關知識，並會針對各個密碼進行加解密及破解實作。</p>
+<h1 id="基本名詞解釋"><a href="#基本名詞解釋" class="headerlink" title="基本名詞解釋"></a>基本名詞解釋</h1><ol>
+<li>加密 Encrypt：指將明文經過某種程序轉換成密文，該程序稱為加密。</li>
+<li>解密 Decrypt：指將密文經過某種程序轉換成名文，該程序稱為解密。</li>
+<li>明文 Plaintext：加密前的訊息。</li>
+<li>密文 CiperText：加密後的訊息。</li>
+</ol>
+<a id="more"></a>
+
+<h1 id="經典密碼學"><a href="#經典密碼學" class="headerlink" title="經典密碼學"></a>經典密碼學</h1><p>首先先來介紹密碼學中最最最基本的經典密碼學也可稱之為古典密碼學。</p>
+<h2 id="凱薩密碼"><a href="#凱薩密碼" class="headerlink" title="凱薩密碼"></a>凱薩密碼</h2><p>你或許沒聽過但你一定看過。<br>他是一種替換加密的技術，將明文中的所有字母都在字母表上向後或向前按照一個固定的數目進行偏移所形成的密文。<br>舉例來說：一個字母Ａ偏移3時會變成Ｄ，你一定會問為什麼呢？<br>A的ASCII=41，D的ASCII=44，那41+3=44，也就會偏移後變成我們所說的Ｄ，以此類推。<br>了解其原理後，你就會發現此加密方法非常容易被破解，但他還在現代的<a href="https://zh.wikipedia.org/wiki/ROT13" target="_blank" rel="noopener">ROT13</a>系統中被應用。<br>接著我們就要來實作凱薩密碼…</p>
+<h3 id="凱薩密碼加密實作"><a href="#凱薩密碼加密實作" class="headerlink" title="凱薩密碼加密實作"></a>凱薩密碼加密實作</h3><p>將字母轉換成ASCII後在加上偏移量後在轉換回字母即可達到凱薩加密的功能。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> passWords[<span class="number">99</span>];</span><br><span class="line">  <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter a offset,please:"</span>;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; offSet;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter a Number,please:"</span>;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; passWords; </span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; <span class="built_in">strlen</span>(passWords); index++)</span><br><span class="line">    passWords[index] = <span class="keyword">char</span>(<span class="keyword">int</span>(passWords[index]) + offSet);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Your Cipertext:"</span> &lt;&lt; passWords &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>Console Output</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enter a offset,please:3</span><br><span class="line">Enter a Number,please:A</span><br><span class="line">Your Cipertext:D</span><br></pre></td></tr></table></figure>
+<h3 id="凱薩密碼解密實作"><a href="#凱薩密碼解密實作" class="headerlink" title="凱薩密碼解密實作"></a>凱薩密碼解密實作</h3><p>加密反之，將字母轉換成ASCII後在減掉偏移量後在轉換回字母即可達到凱薩解密的功能。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> passWords[<span class="number">99</span>];</span><br><span class="line">  <span class="keyword">int</span> offSet = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter a offset,please:"</span>;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; offSet;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter a Cipertext,please:"</span>;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; passWords; </span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; <span class="built_in">strlen</span>(passWords); index++)</span><br><span class="line">    passWords[index] = <span class="keyword">char</span>(<span class="keyword">int</span>(passWords[index]) - offSet);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Your Number:"</span> &lt;&lt; passWords &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>Console Output</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Enter a offset,please:3</span><br><span class="line">Enter a Cipertext,please:D</span><br><span class="line">Your Number:A</span><br></pre></td></tr></table></figure>
+
+<h3 id="凱薩密碼破解實作"><a href="#凱薩密碼破解實作" class="headerlink" title="凱薩密碼破解實作"></a>凱薩密碼破解實作</h3><p>暴力解：透過偏移量測試，因為字母偏移量最大上限只有25。</p>
+<p>以一個登入系統而言，當假設今天使用者登入的密碼都會經過凱薩加密。<br>使用者密碼輸入為：qwerty 偏移量３加密後：tzhuw|<br>接著我們要扮演一個要找出這個登入系統的加密偏移量的玩家。<br>那我們該怎麼做呢？</p>
+<ol>
+<li>直接放棄</li>
+<li>看著螢幕發呆</li>
+</ol>
+<p>努力撰寫中…</p>
+<h2 id="維吉尼亞密碼"><a href="#維吉尼亞密碼" class="headerlink" title="維吉尼亞密碼"></a>維吉尼亞密碼</h2><p>相較於凱薩加密法不一樣的地方在於維吉尼亞在每個明文字母都給予不同的偏移量，而這個偏移量來自事前輸入的基碼，因此通常需要搭配一個表格來快速對應加密後的字母位置。<br>努力撰寫中…</p>
+<h1 id="現代密碼學"><a href="#現代密碼學" class="headerlink" title="現代密碼學"></a>現代密碼學</h1><p>努力撰寫中…</p>
+<h1 id="文獻參考"><a href="#文獻參考" class="headerlink" title="文獻參考"></a>文獻參考</h1><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%AF%86%E7%A0%81%E5%AD%A6" target="_blank" rel="noopener">維基百科_密碼學</a> </li>
+<li><a href="https://hitcon.org/2018/CMT/slide-files/d1_s2_r4.pdf" target="_blank" rel="noopener">應用密碼學入門 Allen Chou</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%87%B1%E6%92%92%E5%AF%86%E7%A2%BC" target="_blank" rel="noopener">維基百科_凱薩密碼</a> </li>
+<li><a href="https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81" target="_blank" rel="noopener">維基百科_維吉尼亞密碼</a> </li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/28/%E4%BE%86%E5%88%A9%E7%94%A8Hexo+GitHub%E5%89%B5%E5%BB%BA%E5%B1%AC%E6%96%BC%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B0%8F%E5%A4%A9%E5%9C%B0%E5%90%A7/" rel="prev" title="來利用Hexo+GitHub創建屬於自己的小天地吧">
+      <i class="fa fa-chevron-left"></i> 來利用Hexo+GitHub創建屬於自己的小天地吧
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/04/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DParrotOS/" rel="next" title="學習筆記－ParrotOS">
+      學習筆記－ParrotOS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#簡介"><span class="nav-number">1.</span> <span class="nav-text">簡介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本名詞解釋"><span class="nav-number">2.</span> <span class="nav-text">基本名詞解釋</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#經典密碼學"><span class="nav-number">3.</span> <span class="nav-text">經典密碼學</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#凱薩密碼"><span class="nav-number">3.1.</span> <span class="nav-text">凱薩密碼</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#凱薩密碼加密實作"><span class="nav-number">3.1.1.</span> <span class="nav-text">凱薩密碼加密實作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凱薩密碼解密實作"><span class="nav-number">3.1.2.</span> <span class="nav-text">凱薩密碼解密實作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凱薩密碼破解實作"><span class="nav-number">3.1.3.</span> <span class="nav-text">凱薩密碼破解實作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#維吉尼亞密碼"><span class="nav-number">3.2.</span> <span class="nav-text">維吉尼亞密碼</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#現代密碼學"><span class="nav-number">4.</span> <span class="nav-text">現代密碼學</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文獻參考"><span class="nav-number">5.</span> <span class="nav-text">文獻參考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HONG JUN MIN</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洪鈞閔</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
