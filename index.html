@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,9 +21,9 @@
   </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="學習筆記">
+<meta property="og:title" content="精神時光屋">
 <meta property="og:url" content="https://junminhong.github.io/index.html">
-<meta property="og:site_name" content="學習筆記">
+<meta property="og:site_name" content="精神時光屋">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:author" content="HONG JUN MIN">
 <meta property="article:tag" content="code">
@@ -41,7 +41,7 @@
   };
 </script>
 
-  <title>學習筆記</title>
+  <title>精神時光屋</title>
   
 
 
@@ -93,11 +93,11 @@
     <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">學習筆記</span>
+        <span class="site-title">精神時光屋</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">只做自己喜歡的事</p>
+        <p class="site-subtitle">別被人的否定，而不去肯定自我</p>
   </div>
 
   <div class="site-nav-right">
@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/04/12/%E9%96%8B%E7%99%BC%E7%AD%86%E8%A8%98%EF%BC%8D%E6%99%BA%E6%85%A7%E8%A3%81%E5%88%87%E7%B3%BB%E7%B5%B1/">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/07/13/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DLaravel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -155,12 +155,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="學習筆記">
+      <meta itemprop="name" content="精神時光屋">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/12/%E9%96%8B%E7%99%BC%E7%AD%86%E8%A8%98%EF%BC%8D%E6%99%BA%E6%85%A7%E8%A3%81%E5%88%87%E7%B3%BB%E7%B5%B1/" class="post-title-link" itemprop="url">開發筆記－智慧裁切系統</a>
+            <a href="/2020/07/13/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DLaravel/" class="post-title-link" itemprop="url">學習筆記－Laravel</a>
         </h1>
 
         <div class="post-meta">
@@ -169,10 +169,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2020-04-12 22:50:52 / 修改時間：22:56:06" itemprop="dateCreated datePublished" datetime="2020-04-12T22:50:52+08:00">2020-04-12</time>
+              <time title="創建時間：2020-07-13 12:36:33" itemprop="dateCreated datePublished" datetime="2020-07-13T12:36:33+08:00">2020-07-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-07-22 11:37:43" itemprop="dateModified" datetime="2020-07-22T11:37:43+08:00">2020-07-22</time>
+              </span>
 
           
 
@@ -185,11 +191,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="當前系統核心算法"><a href="#當前系統核心算法" class="headerlink" title="當前系統核心算法"></a>當前系統核心算法</h1><p>之後補充…</p>
-<h1 id="已知問題-解決時請打勾"><a href="#已知問題-解決時請打勾" class="headerlink" title="已知問題(解決時請打勾)"></a>已知問題(解決時請打勾)</h1><ul>
-<li><input disabled="" type="checkbox"> 原物料重新讀取時無法即時更新。</li>
-</ul>
-
+          <h1 id="開始之前"><a href="#開始之前" class="headerlink" title="開始之前"></a>開始之前</h1><p>前置作業後續再做補充</p>
+<h1 id="env檔介紹"><a href="#env檔介紹" class="headerlink" title=".env檔介紹"></a>.env檔介紹</h1><p>APP_NAME – 專案的名稱<br>APP_ENV – 專案開發的環境，local / staging<br>APP_KEY – 用作加密session, password以及其他重要資料，沒有設定的話，這些資料會有安全上的問題喔! 可以在CLI(命令列介面)使用php artisan key:generate隨機生成<br>APP_DEBUG – 提供在瀏覽器中顯示詳細的錯誤訊息來進行debug，true / false<br>APP_LOG_LEVEL – 你要laravel紀錄多詳細的log內容(log會儲存於/storage/logs)<br>debug / info / notice / warning / error / critical / alert / emergency.<br>APP_URL – 你專案網站的網址，像是<a href="http://example.com" target="_blank" rel="noopener">http://example.com</a> / <a href="http://laravel.local，在之後使用方法url()時便可取得該網址" target="_blank" rel="noopener">http://laravel.local，在之後使用方法url()時便可取得該網址</a></p>
+<p>DB_CONNECTION – 根據使用的資料庫做設定，可能是MySQL, MongoDB, SQLite, SQL Server…本教學使用MySQL<br>DB_HOST – 資料庫主機的位置，本機預設為0.0.1<br>DB_PORT – 資料庫主機的port，預設為3306<br>DB_DATABASE – 資料庫的名稱<br>DB_USERNAME – 資料庫的帳號<br>DB_PASSWORD – 資料庫的密碼</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/13/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DLaravel/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -217,7 +229,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="學習筆記">
+      <meta itemprop="name" content="精神時光屋">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -231,10 +243,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2020-04-09 17:05:05 / 修改時間：17:27:31" itemprop="dateCreated datePublished" datetime="2020-04-09T17:05:05+08:00">2020-04-09</time>
+              <time title="創建時間：2020-04-09 17:05:05" itemprop="dateCreated datePublished" datetime="2020-04-09T17:05:05+08:00">2020-04-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-04-21 18:56:25" itemprop="dateModified" datetime="2020-04-21T18:56:25+08:00">2020-04-21</time>
+              </span>
 
           
 
@@ -285,7 +303,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="學習筆記">
+      <meta itemprop="name" content="精神時光屋">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -367,7 +385,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="學習筆記">
+      <meta itemprop="name" content="精神時光屋">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -446,7 +464,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="學習筆記">
+      <meta itemprop="name" content="精神時光屋">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -589,17 +607,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分類</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">標籤</span>
       </div>
   </nav>
 </div>
