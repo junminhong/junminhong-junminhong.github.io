@@ -28,7 +28,7 @@
 <meta property="og:description" content="開始之前前置作業後續再做補充 .env檔介紹APP_NAME – 專案的名稱APP_ENV – 專案開發的環境，local &#x2F; stagingAPP_KEY – 用作加密session, password以及其他重要資料，沒有設定的話，這些資料會有安全上的問題喔! 可以在CLI(命令列介面)使用php artisan key:generate隨機生成APP_DEBUG – 提供在瀏覽器中顯示詳細的">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-07-13T04:36:33.000Z">
-<meta property="article:modified_time" content="2020-07-22T03:37:43.619Z">
+<meta property="article:modified_time" content="2020-08-02T10:43:59.047Z">
 <meta property="article:author" content="HONG JUN MIN">
 <meta property="article:tag" content="code">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-07-22 11:37:43" itemprop="dateModified" datetime="2020-07-22T11:37:43+08:00">2020-07-22</time>
+                <time title="修改時間：2020-08-02 18:43:59" itemprop="dateModified" datetime="2020-08-02T18:43:59+08:00">2020-08-02</time>
               </span>
 
           
@@ -198,8 +198,18 @@
 <h1 id="env檔介紹"><a href="#env檔介紹" class="headerlink" title=".env檔介紹"></a>.env檔介紹</h1><p>APP_NAME – 專案的名稱<br>APP_ENV – 專案開發的環境，local / staging<br>APP_KEY – 用作加密session, password以及其他重要資料，沒有設定的話，這些資料會有安全上的問題喔! 可以在CLI(命令列介面)使用php artisan key:generate隨機生成<br>APP_DEBUG – 提供在瀏覽器中顯示詳細的錯誤訊息來進行debug，true / false<br>APP_LOG_LEVEL – 你要laravel紀錄多詳細的log內容(log會儲存於/storage/logs)<br>debug / info / notice / warning / error / critical / alert / emergency.<br>APP_URL – 你專案網站的網址，像是<a href="http://example.com" target="_blank" rel="noopener">http://example.com</a> / <a href="http://laravel.local，在之後使用方法url()時便可取得該網址" target="_blank" rel="noopener">http://laravel.local，在之後使用方法url()時便可取得該網址</a></p>
 <p>DB_CONNECTION – 根據使用的資料庫做設定，可能是MySQL, MongoDB, SQLite, SQL Server…本教學使用MySQL<br>DB_HOST – 資料庫主機的位置，本機預設為0.0.1<br>DB_PORT – 資料庫主機的port，預設為3306<br>DB_DATABASE – 資料庫的名稱<br>DB_USERNAME – 資料庫的帳號<br>DB_PASSWORD – 資料庫的密碼</p>
 <a id="more"></a>
-<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p><a href="https://medium.com/@yfancc20/laradock-%E8%BC%95%E9%87%8F-laravel-%E7%92%B0%E5%A2%83%E7%9A%84%E5%98%97%E8%A9%A6-%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4-2fc6f0c21433" target="_blank" rel="noopener">123</a></p>
-<p><a href="https://dometi.com.tw/blog/laravel-beginner-03/" target="_blank" rel="noopener">123</a></p>
+
+<h1 id="在Azure上用Laradock部署環境"><a href="#在Azure上用Laradock部署環境" class="headerlink" title="在Azure上用Laradock部署環境"></a>在Azure上用Laradock部署環境</h1><h2 id="開始之前-1"><a href="#開始之前-1" class="headerlink" title="開始之前"></a>開始之前</h2><p>當然是要先去Azure上面架設一台虛擬機器啊 ～</p>
+<h2 id="架設好虛擬機器後"><a href="#架設好虛擬機器後" class="headerlink" title="架設好虛擬機器後"></a>架設好虛擬機器後</h2><p>我們現在要來連接到我們架設好的虛擬機器上</p>
+<p>我這邊選擇的虛擬機器是CentOS</p>
+<p>Azure有提供三種連線方式可以做連線</p>
+<ol>
+<li>RDP</li>
+<li>SSH</li>
+<li>Bastion </li>
+</ol>
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p><a href="https://medium.com/@yfancc20/laradock-%E8%BC%95%E9%87%8F-laravel-%E7%92%B0%E5%A2%83%E7%9A%84%E5%98%97%E8%A9%A6-%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4-2fc6f0c21433" target="_blank" rel="noopener">1</a></p>
+<p><a href="https://dometi.com.tw/blog/laravel-beginner-03/" target="_blank" rel="noopener">2</a></p>
 
     </div>
 
@@ -218,7 +228,10 @@
     <a href="/2020/04/09/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E7%B6%B2%E9%A0%81-HTML/" rel="prev" title="學習筆記－網頁_HTML">
       <i class="fa fa-chevron-left"></i> 學習筆記－網頁_HTML
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/06/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DOh%20My%20Zsh/" rel="next" title="學習筆記－Oh My Zsh">
+      學習筆記－Oh My Zsh <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -278,7 +291,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#開始之前"><span class="nav-number">1.</span> <span class="nav-text">開始之前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#env檔介紹"><span class="nav-number">2.</span> <span class="nav-text">.env檔介紹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">3.</span> <span class="nav-text">參考文獻</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#開始之前"><span class="nav-number">1.</span> <span class="nav-text">開始之前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#env檔介紹"><span class="nav-number">2.</span> <span class="nav-text">.env檔介紹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Azure上用Laradock部署環境"><span class="nav-number">3.</span> <span class="nav-text">在Azure上用Laradock部署環境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#開始之前-1"><span class="nav-number">3.1.</span> <span class="nav-text">開始之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架設好虛擬機器後"><span class="nav-number">3.2.</span> <span class="nav-text">架設好虛擬機器後</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考文獻"><span class="nav-number">4.</span> <span class="nav-text">參考文獻</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -291,7 +304,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
