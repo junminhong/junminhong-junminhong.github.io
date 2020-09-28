@@ -20,16 +20,20 @@
     var CONFIG = {"hostname":"junminhong.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="精神時光屋">
-<meta property="og:url" content="https://junminhong.github.io/archives/2020/09/index.html">
+  <meta name="description" content="基因演算法的簡介所謂的基因演算法是有一種用途非常廣泛的搜尋技巧，他並不是朝著一個已知解移動，而是由大自然各物種的進化過程中啟發而得的靈感，大自然演化的目的在於下一代要比上一代更加適應目前的環境，而其特點相對於傳統演算法由一點慢慢逼近最佳解，基因演算法則是把這些問題的最佳解以基因的型態來表示，主要是使用三個基本運算子：複製、交配、突變">
+<meta property="og:type" content="article">
+<meta property="og:title" content="學習筆記－基因演算法">
+<meta property="og:url" content="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="精神時光屋">
+<meta property="og:description" content="基因演算法的簡介所謂的基因演算法是有一種用途非常廣泛的搜尋技巧，他並不是朝著一個已知解移動，而是由大自然各物種的進化過程中啟發而得的靈感，大自然演化的目的在於下一代要比上一代更加適應目前的環境，而其特點相對於傳統演算法由一點慢慢逼近最佳解，基因演算法則是把這些問題的最佳解以基因的型態來表示，主要是使用三個基本運算子：複製、交配、突變">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-28T11:33:45.000Z">
+<meta property="article:modified_time" content="2020-09-28T12:58:41.278Z">
 <meta property="article:author" content="HONG JUN MIN">
 <meta property="article:tag" content="code">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://junminhong.github.io/archives/2020/09/">
+<link rel="canonical" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -37,11 +41,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false
+    isPost : true
   };
 </script>
 
-  <title>歸檔 | 精神時光屋</title>
+  <title>學習筆記－基因演算法 | 精神時光屋</title>
   
 
 
@@ -141,129 +145,94 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共有 11 篇文章。 繼續努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HONG JUN MIN">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="精神時光屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          學習筆記－基因演算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-09-28 19:33:45 / 修改時間：20:58:41" itemprop="dateCreated datePublished" datetime="2020-09-28T19:33:45+08:00">2020-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%B8%E7%BF%92%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">學習紀錄</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+        <h1 id="基因演算法的簡介"><a href="#基因演算法的簡介" class="headerlink" title="基因演算法的簡介"></a>基因演算法的簡介</h1><p>所謂的基因演算法是有一種用途非常廣泛的搜尋技巧，他並不是朝著一個已知解移動，而是由大自然各物種的進化過程中啟發而得的靈感，大自然演化的目的在於下一代要比上一代更加適應目前的環境，而其特點相對於傳統演算法由一點慢慢逼近最佳解，基因演算法則是把這些問題的最佳解以基因的型態來表示，主要是使用三個基本運算子：複製、交配、突變</p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:35:32+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DBlockChain/" itemprop="url">
-            <span itemprop="name">學習筆記－BlockChain</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:34:52+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DAngular/" itemprop="url">
-            <span itemprop="name">學習筆記－Angular</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:33:45+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/" itemprop="url">
-            <span itemprop="name">學習筆記－基因演算法</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:27:02+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/" itemprop="url">
-            <span itemprop="name">學習筆記－如何使用docker-compose快速建置redmine</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-06T14:59:01+08:00"
-              content="2020-09-06">
-          09-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/06/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DOh%20My%20Zsh/" itemprop="url">
-            <span itemprop="name">學習筆記－Oh My Zsh</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+<h1 id="基因演算法最終目的？"><a href="#基因演算法最終目的？" class="headerlink" title="基因演算法最終目的？"></a>基因演算法最終目的？</h1><p>基因演算法其實最終目的就是找出目標函數<br>看不懂沒關係你只要知道就是要找出最好的就對了<br><strong>未來會補上圖片比較清楚</strong><br>編碼 &gt; 隨機產生母體 &gt; 計算適應函數並將其最佳基因紀錄 &gt; 是否滿足終止條件<br>是 &gt; 輸出基因編碼並解碼 &gt; 得到最佳解<br>否 &gt; 進行複製、交配、突變 &gt; 產生新一代 &gt; 繼續計算適應函數並將其最佳基因紀錄</p>
+<h1 id="基因演算法程式實作"><a href="#基因演算法程式實作" class="headerlink" title="基因演算法程式實作"></a>基因演算法程式實作</h1><p>待補</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/" rel="prev" title="學習筆記－如何使用docker-compose快速建置redmine">
+      <i class="fa fa-chevron-left"></i> 學習筆記－如何使用docker-compose快速建置redmine
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DAngular/" rel="next" title="學習筆記－Angular">
+      學習筆記－Angular <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -314,6 +283,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基因演算法的簡介"><span class="nav-number">1.</span> <span class="nav-text">基因演算法的簡介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基因演算法最終目的？"><span class="nav-number">2.</span> <span class="nav-text">基因演算法最終目的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基因演算法程式實作"><span class="nav-number">3.</span> <span class="nav-text">基因演算法程式實作</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

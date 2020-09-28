@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"junminhong.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="開始之前 可先去docker hub下載redmine、postgres兩個image 準備一台可以運行docker的機器，這邊選擇使用AWS的EC2作為主機">
+<meta property="og:type" content="article">
+<meta property="og:title" content="學習筆記－如何使用docker-compose快速建置redmine">
+<meta property="og:url" content="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/index.html">
+<meta property="og:site_name" content="精神時光屋">
+<meta property="og:description" content="開始之前 可先去docker hub下載redmine、postgres兩個image 準備一台可以運行docker的機器，這邊選擇使用AWS的EC2作為主機">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-28T11:27:02.000Z">
+<meta property="article:modified_time" content="2020-09-28T11:30:55.774Z">
+<meta property="article:author" content="HONG JUN MIN">
+<meta property="article:tag" content="code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>學習筆記－如何使用docker-compose快速建置redmine | 精神時光屋</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">精神時光屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">別被人的否定，而不去肯定自我</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HONG JUN MIN">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="精神時光屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          學習筆記－如何使用docker-compose快速建置redmine
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-09-28 19:27:02 / 修改時間：19:30:55" itemprop="dateCreated datePublished" datetime="2020-09-28T19:27:02+08:00">2020-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%B8%E7%BF%92%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">學習紀錄</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="開始之前"><a href="#開始之前" class="headerlink" title="開始之前"></a>開始之前</h1><ol>
+<li>可先去docker hub下載redmine、postgres兩個image</li>
+<li>準備一台可以運行docker的機器，這邊選擇使用AWS的EC2作為主機<a id="more"></a>
+
+</li>
+</ol>
+<h1 id="撰寫yml檔"><a href="#撰寫yml檔" class="headerlink" title="撰寫yml檔"></a>撰寫yml檔</h1><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.8"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">postgres:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_NAME=</span> <span class="comment"># 你資料庫的名稱</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_USER=</span> <span class="comment"># 資料庫使用者或帳號</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_PASSWORD=</span> <span class="comment"># 資料庫密碼</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/postgres:/var/lib/postgresql/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/sql:/var/lib/postgresql</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"5432:5432"</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">redmine:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redmine:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redmine</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_PORT=5432</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_NAME=</span> <span class="comment"># 你資料庫的名稱</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_USER=</span> <span class="comment"># 資料庫使用者或帳號</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_PASSWORD=</span> <span class="comment"># 資料庫密碼</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">REDMINE_PORT=80</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/redmine/files:/usr/src/redmine/files</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/redmine/log:/usr/src/redmine/log</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/redmine/plugins:/usr/src/redmine/plugins</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/redmine/redmine/themes:/usr/src/redmine/public/themes</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"80:3000"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="開始建置"><a href="#開始建置" class="headerlink" title="開始建置"></a>開始建置</h1><ol>
+<li>首先請先ssh到你的EC2主機上，並確保docker以及docker-compose已被安裝。</li>
+<li>接著將yml檔命名成docker-compose.yml並移至你想要的資料夾內<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 這邊提供如何將本機資料上傳至EC2</span></span><br><span class="line">scp 要上傳的本機檔案位置 EC2主機IP:要移至EC2的哪個位置</span><br></pre></td></tr></table></figure></li>
+<li>搬移檔案完成後<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d <span class="comment"># 啟動所有服務並在背景運行</span></span><br><span class="line">docker-compose ps <span class="comment"># 查看服務是否都有被成功運行</span></span><br></pre></td></tr></table></figure></li>
+<li>基本上到了這步就可以開啟瀏覽器看到redmine已經成功被建置成功了，但是redmine預設database是內建的sqlite，所以我們要來改變一下資料庫</li>
+<li>先創建或者進去docker裡面拉出database.yml，這邊介紹如何進去docker裡面拉出database.yml，因為創建好像不太需要說明？<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 沒關係怕有些讀者可能不太清楚linux上如何透過指令新增檔案</span></span><br><span class="line"><span class="comment"># 這邊稍微介紹幾個可以做到新增檔案的方法</span></span><br><span class="line">1. vim database.yml <span class="comment"># 進入vim後:wq指令退出即會得到一個database.yml</span></span><br><span class="line">2. touch database.yml <span class="comment"># 這個步驟比較簡單只要下這行指令就會得到一個database.yml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接著我要來介紹如何進入docker拿取database.yml</span></span><br><span class="line">1. docker <span class="built_in">exec</span> -it rdmine bash <span class="comment"># 進入我們剛創建好的redmine的container裡面</span></span><br><span class="line">2. cp /usr/src/redmine/config <span class="comment"># 進入config資料夾內</span></span><br><span class="line">3. ls -al <span class="comment"># 你會發現到一個database.yml</span></span><br><span class="line">4. docker cp database.yml 你要在實體機器上存放的位置</span><br><span class="line">5. <span class="built_in">exit</span> <span class="comment"># 退出container</span></span><br></pre></td></tr></table></figure></li>
+<li>回到實體機器(EC2)上你就會發現你已經把database.yml存取出來了</li>
+<li>接著我們來編輯database.yml<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. vim database.yml <span class="comment"># 可以看到database預設是使用sqlite，這時候我們需要修改成剛我們創建好的postgres</span></span><br><span class="line"></span><br><span class="line">production:</span><br><span class="line">  adapter: postgresql</span><br><span class="line">  encoding: utf8</span><br><span class="line">  database: redmine</span><br><span class="line">  host: postgres的ip位置</span><br><span class="line">  username: 資料庫使用者或帳號</span><br><span class="line">  password: 資料庫密碼</span><br><span class="line">  pool: 25</span><br></pre></td></tr></table></figure></li>
+<li>看到這邊你可能會說啊postgres的IP位置我要怎麼得知，別急我接著來告訴你如何取得container的IP位置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network ls <span class="comment"># 列出網路資訊找到剛剛創建的network</span></span><br><span class="line">docker network inspect networkname <span class="comment"># 查詢剛看到的nwtworkname詳細資訊</span></span><br><span class="line"><span class="comment"># 找到container是postgres的IP將他複製就可以了</span></span><br></pre></td></tr></table></figure></li>
+<li>修改完database.yml後，最重要的一步就是將database.yml放回去container裡面拉<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp database.yml 要放到container的哪個位置</span><br><span class="line">docker-compose restart redmine <span class="comment"># 重啟redmine</span></span><br></pre></td></tr></table></figure></li>
+<li>走到這步，我們終於完成了redmine串接資料庫了，替自己拍拍手吧</li>
+</ol>
+<p><strong>以下步驟看個人喜好繼續學習</strong><br>11. 但是呢redmine怎能少email這個服務呢，接著再來介紹一下redmine如何串連SMTP<br>12. 這邊我使用gmail的SMTP，但要進行這個步驟必須要先有自己的email domain，如果沒有的話應該是能用gmail的，但這部分我沒試過所以我也不太清楚<br>13. 一樣我這邊直接進入container拉出configuration.yml，詳細教學上面有講了我這邊就不多打了<br>14. 拉出後修改configuration.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">email_delivery:</span><br><span class="line">  delivery_method: :smtp</span><br><span class="line">  smtp_settings:</span><br><span class="line">    enable_starttls_auto: <span class="literal">true</span></span><br><span class="line">    address: <span class="string">"smtp.gmail.com"</span></span><br><span class="line">    port: 587</span><br><span class="line">    domain: <span class="comment"># 'your.domain.com' for GoogleApps</span></span><br><span class="line">    authentication: :plain</span><br><span class="line">    user_name: <span class="comment"># 帳號</span></span><br><span class="line">    password: <span class="comment"># 密碼</span></span><br></pre></td></tr></table></figure>
+<ol start="15">
+<li>修改完後將configuration.yml丟進去container接著重啟redmine服務</li>
+<li>接著就大功告成拉可以開始使用redmine</li>
+<li>其他的修改redmine和加入套件會再額外撰寫一篇文章，這邊就先不做敘述了</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/06/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DOh%20My%20Zsh/" rel="prev" title="學習筆記－Oh My Zsh">
+      <i class="fa fa-chevron-left"></i> 學習筆記－Oh My Zsh
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/" rel="next" title="學習筆記－基因演算法">
+      學習筆記－基因演算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#開始之前"><span class="nav-number">1.</span> <span class="nav-text">開始之前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撰寫yml檔"><span class="nav-number">2.</span> <span class="nav-text">撰寫yml檔</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#開始建置"><span class="nav-number">3.</span> <span class="nav-text">開始建置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HONG JUN MIN</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洪鈞閔</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

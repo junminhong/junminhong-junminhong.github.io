@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"junminhong.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="What page is this?這邊會記錄我在專題開發中對於區塊鏈的研究紀錄。 MultiChain此篇講解區塊鏈主要運用技術是MultiChain。 為什麼要選擇MultiChain來做為開發技術呢？因為當時我發現以太坊沒辦法做為練習用途，因為他是一個公有鏈，所以你在後續要驗證一些東西時你會需要提供一些獎勵給裡面的礦工。所以呢我這邊就使用MultiChain來創建屬於自己的私有鏈，那有什麼優">
+<meta property="og:type" content="article">
+<meta property="og:title" content="學習筆記－BlockChain">
+<meta property="og:url" content="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DBlockChain/index.html">
+<meta property="og:site_name" content="精神時光屋">
+<meta property="og:description" content="What page is this?這邊會記錄我在專題開發中對於區塊鏈的研究紀錄。 MultiChain此篇講解區塊鏈主要運用技術是MultiChain。 為什麼要選擇MultiChain來做為開發技術呢？因為當時我發現以太坊沒辦法做為練習用途，因為他是一個公有鏈，所以你在後續要驗證一些東西時你會需要提供一些獎勵給裡面的礦工。所以呢我這邊就使用MultiChain來創建屬於自己的私有鏈，那有什麼優">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-28T11:35:32.000Z">
+<meta property="article:modified_time" content="2020-09-28T13:35:19.677Z">
+<meta property="article:author" content="HONG JUN MIN">
+<meta property="article:tag" content="code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DBlockChain/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>學習筆記－BlockChain | 精神時光屋</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">精神時光屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">別被人的否定，而不去肯定自我</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DBlockChain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HONG JUN MIN">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="精神時光屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          學習筆記－BlockChain
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-09-28 19:35:32 / 修改時間：21:35:19" itemprop="dateCreated datePublished" datetime="2020-09-28T19:35:32+08:00">2020-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%B8%E7%BF%92%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">學習紀錄</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="What-page-is-this"><a href="#What-page-is-this" class="headerlink" title="What page is this?"></a>What page is this?</h1><p>這邊會記錄我在專題開發中對於區塊鏈的研究紀錄。</p>
+<h1 id="MultiChain"><a href="#MultiChain" class="headerlink" title="MultiChain"></a>MultiChain</h1><p>此篇講解區塊鏈主要運用技術是MultiChain。</p>
+<h1 id="為什麼要選擇MultiChain來做為開發技術呢？"><a href="#為什麼要選擇MultiChain來做為開發技術呢？" class="headerlink" title="為什麼要選擇MultiChain來做為開發技術呢？"></a>為什麼要選擇MultiChain來做為開發技術呢？</h1><p>因為當時我發現以太坊沒辦法做為練習用途，因為他是一個公有鏈，所以你在後續要驗證一些東西時你會需要提供一些獎勵給裡面的礦工。<br>所以呢我這邊就使用MultiChain來創建屬於自己的私有鏈，那有什麼優點呢？<br>你可以在上面隨意的開發，也可以胡搞瞎搞(？，其他優點不如親自試看看就知道嘍。</p>
+<a id="more"></a>
+
+<h1 id="區塊鏈是什麼咧"><a href="#區塊鏈是什麼咧" class="headerlink" title="區塊鏈是什麼咧"></a>區塊鏈是什麼咧</h1><p>講白一點他就是一條鏈子，而鏈子上面的每個節點，裡面會存放許多的交易紀錄，而我們常在新聞中所看到所謂的挖礦，就是礦工在幫我們去驗證這些交易紀錄的正確性，相對的我們也要支付一些獎勵來慰勞這些礦工。</p>
+<h1 id="公有鏈"><a href="#公有鏈" class="headerlink" title="公有鏈"></a>公有鏈</h1><p>公有鏈向全世界任何人公開，所有人都可訪問，發送、接收、認證交易。所有人都能參與其中共識過程的區塊鏈——共識過程決定哪個區塊可被添加到區塊鏈中，也因此公有鏈「通常」被認為是完全去中心化的。</p>
+<ol>
+<li>特色：不可篡改，匿名公開，技術門檻低，是<del>真正的去中心化。</del><br>每個參與者可以看到所有的帳戶餘額和其所有的交易活動。</li>
+<li>缺點：分散式治理仰賴共識決，更新迭代慢、自行開發的話，目前技術發展框架，初期建置成本高昂。若企業直接採用公有鏈，則會受限於擴容問題、以及企業需求無法滿足（通常會以側鏈妥協，但側鏈則容易陷入中心化疑慮）。<br>舉例：比特幣、以太坊。</li>
+</ol>
+<h1 id="私有鏈"><a href="#私有鏈" class="headerlink" title="私有鏈"></a>私有鏈</h1><p>私有鏈是完全私有的區塊鏈，指寫入權限僅限於在一個組織手裡的區塊鏈。讀取權限或者對外開放，或者被一定程度地進行了限制。整個網絡由成員機構共同維護，網絡接入一般通過成員機構的網關節點接入，共識過程由預先選好的節點控制。這類區塊鏈被認為是「部分去中心化」。</p>
+<ol>
+<li>特點：交易速度快，保護隱私，交易成本極低；仍保有不可篡改性。</li>
+<li>缺點：由於完全中心化的特性，私有鏈是的代幣（若有發行的話）價格是可以被操作的，代碼也是可以修改的，集中風險較大。<br>在近年因為企業對區塊鏈的探索與需求，發展出了在這兩種區塊鏈的混合，有一種區塊鏈稱為聯盟鏈，保有私有鏈的隱私性，又能維持多節點共識治理的特性。</li>
+</ol>
+<h1 id="聯盟鏈"><a href="#聯盟鏈" class="headerlink" title="聯盟鏈"></a>聯盟鏈</h1><p>聯盟鏈適合於機構間的交易、結算或清算等 B2B 場景。例如在銀行間進行支付、結算、清算的系統就可以採用聯盟鏈的形式，將各家銀行的網關節點作為記帳節點。</p>
+<p>通常情況下，外部觀察者可以查詢，但是不可交易，聯盟鏈是指其共識過程受到預選節點控制的區塊鏈；區塊鏈或許允許每個人都可讀取，區塊的 Root Hash 及其 API（應用程式接口）對外公開，API 可允許外界用來作有限次數的查詢和獲取區塊鏈狀態的資訊。這些區塊鏈可視為「部分去中心化」。</p>
+<p>聯盟鏈與私鏈類似，其開放程度和去中心化程度是有所限制的，其讀寫權、記帳權由組織決定。與私有鏈最大的不同在於，聯盟鏈是為一個聯盟，比如一個行業服務的；而私鏈則是為一個組織，比如一家公司內部服務。</p>
+<p>區塊鏈目前正在四個方面進行技術性的優化:</p>
+<ol>
+<li>共識算法，正在由低頻低效向高頻高效轉變。</li>
+<li>治理方式，從鏈上處理到鏈上鏈下協同。</li>
+<li>服務分片，由全員周知到範圍通知。</li>
+<li>組織架構，從單一鏈條到多鏈組合。</li>
+</ol>
+<h1 id="不可能三角"><a href="#不可能三角" class="headerlink" title="不可能三角"></a>不可能三角</h1><p>看完區塊鏈是不是覺得好像有這麼一點厲害呢。<br>但是不要忘了區塊鏈還有一個沒人跟你說的一面。<br>當時中本聰在設計比特幣網絡時，對於面對的不可能三角中的去中心化、安全性和可拓展性三者，選擇了去中心化和安全性而不得不捨棄了可擴展性。<br>那這個不可能三角代表的是什麼意思呢？<br>區塊鏈表面的完美三角特性，其實在現在的實務基準上是不可能達到的，但是以太坊的各位大神正在努力為這塊在開發與研究，說不定未來的某一天是能夠達到完美三角的呢。</p>
+<h1 id="攻擊手法"><a href="#攻擊手法" class="headerlink" title="攻擊手法"></a>攻擊手法</h1><ol>
+<li>51%攻擊: 透過掌控整個區塊鏈超過51%的算力，可更改整個區塊鏈所有的帳本，反句話來說也就是這個區塊鏈變成是你的，但這個攻擊必須擁有很強大的電腦運算能力，以目前比特幣區塊鏈來說要能夠控制的話，除非你擁有一台非常強大的量子電腦才有辦法。<br>看到關鍵字量子電腦了嗎，近年來量子電腦的技術已飛快的速度進行，間接的也開始威脅到區塊鏈的生態，但是呢以目前來看還不需要太過擔心，</li>
+</ol>
+<h1 id="備註"><a href="#備註" class="headerlink" title="備註"></a>備註</h1><p><strong>繼續努力記錄所知 💪</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DAngular/" rel="prev" title="學習筆記－Angular">
+      <i class="fa fa-chevron-left"></i> 學習筆記－Angular
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-page-is-this"><span class="nav-number">1.</span> <span class="nav-text">What page is this?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MultiChain"><span class="nav-number">2.</span> <span class="nav-text">MultiChain</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#為什麼要選擇MultiChain來做為開發技術呢？"><span class="nav-number">3.</span> <span class="nav-text">為什麼要選擇MultiChain來做為開發技術呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#區塊鏈是什麼咧"><span class="nav-number">4.</span> <span class="nav-text">區塊鏈是什麼咧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#公有鏈"><span class="nav-number">5.</span> <span class="nav-text">公有鏈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#私有鏈"><span class="nav-number">6.</span> <span class="nav-text">私有鏈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#聯盟鏈"><span class="nav-number">7.</span> <span class="nav-text">聯盟鏈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不可能三角"><span class="nav-number">8.</span> <span class="nav-text">不可能三角</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#攻擊手法"><span class="nav-number">9.</span> <span class="nav-text">攻擊手法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#備註"><span class="nav-number">10.</span> <span class="nav-text">備註</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HONG JUN MIN</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洪鈞閔</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

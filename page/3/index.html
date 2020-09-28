@@ -22,26 +22,26 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="精神時光屋">
-<meta property="og:url" content="https://junminhong.github.io/archives/2020/09/index.html">
+<meta property="og:url" content="https://junminhong.github.io/page/3/index.html">
 <meta property="og:site_name" content="精神時光屋">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:author" content="HONG JUN MIN">
 <meta property="article:tag" content="code">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://junminhong.github.io/archives/2020/09/">
+<link rel="canonical" href="https://junminhong.github.io/page/3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false
   };
 </script>
 
-  <title>歸檔 | 精神時光屋</title>
+  <title>精神時光屋</title>
   
 
 
@@ -141,128 +141,111 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+        
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共有 11 篇文章。 繼續努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://junminhong.github.io/2020/03/28/%E4%BE%86%E5%88%A9%E7%94%A8Hexo+GitHub%E5%89%B5%E5%BB%BA%E5%B1%AC%E6%96%BC%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B0%8F%E5%A4%A9%E5%9C%B0%E5%90%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HONG JUN MIN">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="精神時光屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/28/%E4%BE%86%E5%88%A9%E7%94%A8Hexo+GitHub%E5%89%B5%E5%BB%BA%E5%B1%AC%E6%96%BC%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B0%8F%E5%A4%A9%E5%9C%B0%E5%90%A7/" class="post-title-link" itemprop="url">來利用Hexo+GitHub創建屬於自己的小天地吧</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-28 01:29:26" itemprop="dateCreated datePublished" datetime="2020-03-28T01:29:26+08:00">2020-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-06 16:06:29" itemprop="dateModified" datetime="2020-09-06T16:06:29+08:00">2020-09-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%B8%E7%BF%92%E8%A8%98%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">學習記錄</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+          <p>目前我的個人網站就是利用Hexo+GitHub來創建的，會撰寫此篇是因為想記錄以及分享所知。</p>
+<h1 id="開始之前"><a href="#開始之前" class="headerlink" title="開始之前"></a>開始之前</h1><p>接下來都會以Mac系統為主要介紹</p>
+<h1 id="建置步驟"><a href="#建置步驟" class="headerlink" title="建置步驟"></a>建置步驟</h1><p>個人建議透過nvm的方式去安裝node，比較方便管理node的版本<br><strong>安裝nvm</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew instll nvm</span><br><span class="line">nvm install node版本號</span><br><span class="line">版本號建議可使用v12.14.1，太新版的node在後續部署會有些許問題，可參考常見問題2</span><br></pre></td></tr></table></figure>
+
+<p><strong>安裝hexo</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p><strong>建置hexo專案</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> 你的專案資料夾</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p><strong>發布新文章</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post xxx</span><br></pre></td></tr></table></figure>
+
+<p><strong>啟動本地伺服器</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h1 id="待續"><a href="#待續" class="headerlink" title="待續"></a>待續</h1><p>完成以上大致上就可以開始發揮了。<br>有遇到問題或有想到要補充的會繼續更新此篇文章！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/28/%E4%BE%86%E5%88%A9%E7%94%A8Hexo+GitHub%E5%89%B5%E5%BB%BA%E5%B1%AC%E6%96%BC%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B0%8F%E5%A4%A9%E5%9C%B0%E5%90%A7/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:35:32+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DBlockChain/" itemprop="url">
-            <span itemprop="name">學習筆記－BlockChain</span>
-          </a>
-      </h2>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
+  
+  
+  
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:34:52+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DAngular/" itemprop="url">
-            <span itemprop="name">學習筆記－Angular</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:33:45+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%9F%BA%E5%9B%A0%E6%BC%94%E7%AE%97%E6%B3%95/" itemprop="url">
-            <span itemprop="name">學習筆記－基因演算法</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-28T19:27:02+08:00"
-              content="2020-09-28">
-          09-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/28/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%BD%AEredmine/" itemprop="url">
-            <span itemprop="name">學習筆記－如何使用docker-compose快速建置redmine</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-06T14:59:01+08:00"
-              content="2020-09-06">
-          09-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/09/06/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8DOh%20My%20Zsh/" itemprop="url">
-            <span itemprop="name">學習筆記－Oh My Zsh</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 
 
